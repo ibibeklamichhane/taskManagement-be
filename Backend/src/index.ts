@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes";
+import taskRoutes from "./routes/taskRoutes";
+
 
 dotenv.config();
 
@@ -16,6 +18,8 @@ if (!DATABASE_URL) {
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+app.use("/task", taskRoutes);
+
 
 mongoose
   .connect(DATABASE_URL, {})
