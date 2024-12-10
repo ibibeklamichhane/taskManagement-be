@@ -1,14 +1,30 @@
-import express, { Request, Response } from 'express';
+import express from "express";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
+import authRoutes from "./routes/authRoutes";
+
+dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
+const DATABASE_URL = process.env.DATABASE;
+
+if (!DATABASE_URL) {
+  throw new Error("DATABASE_URL is not defined in the .env file.");
+}
 
 app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello, TypeScript with Node.js!');
-});
+app.use("/auth", authRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+mongoose
+  .connect(DATABASE_URL, {})
+  .then(() => {
+    app.listen(PORT, () =>
+      console.log(`Server running on http://localhost:${PORT}`)
+    );
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("Error connecting to MongoDB:", err.message);
+  });
