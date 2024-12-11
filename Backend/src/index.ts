@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes";
 import taskRoutes from "./routes/taskRoutes";
+import cors from "cors"; // Import cors package
+
 
 
 dotenv.config();
@@ -14,6 +16,8 @@ const DATABASE_URL = process.env.DATABASE;
 if (!DATABASE_URL) {
   throw new Error("DATABASE_URL is not defined in the .env file.");
 }
+
+app.use(cors()); 
 
 app.use(express.json());
 
