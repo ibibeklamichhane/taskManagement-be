@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes";
 import taskRoutes from "./routes/taskRoutes";
-import cors from "cors"; // Import cors package
+import cors from "cors"; 
 
 
 
